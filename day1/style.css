@@ -19,9 +19,7 @@ body {
     min-height: 100vh;
     font-family: Georgia, 'Times New Roman', serif;
     color: var(--ink);
-    background:
-        radial-gradient(circle at top, rgba(255, 255, 255, 0.6), transparent 40%),
-        linear-gradient(180deg, #f8eddc 0%, var(--bg) 100%);
+    background: linear-gradient(180deg,#efe6da 0%, #e9dfd3 100%);
 }
 
 .diary-page {
@@ -29,6 +27,83 @@ body {
     display: grid;
     place-items: center;
     padding: 32px 16px;
+}
+
+/* Book cover and transitions */
+.book-cover {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 48px 20px;
+    background: linear-gradient(180deg, #4b2e1a 0%, #b46b3d 60%);
+    color: #fff8ef;
+    position: relative;
+    overflow: hidden;
+    transition: transform 700ms cubic-bezier(.2,.9,.25,1), opacity 420ms ease;
+}
+
+.cover-inner {
+    max-width: 56ch;
+}
+
+.cover-title {
+    margin: 0 0 8px;
+    font-family: 'Georgia', serif;
+    font-size: clamp(2.6rem, 6vw, 5rem);
+    letter-spacing: 0.02em;
+}
+
+.cover-sub {
+    margin: 8px 0 6px;
+    opacity: 0.95;
+    font-weight: 600;
+}
+
+.cover-meta {
+    margin: 12px 0 22px;
+    color: rgba(255,255,255,0.9);
+}
+
+.open-button {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.24);
+}
+
+.close-button {
+    appearance: none;
+    border: 1px solid rgba(47,36,24,0.06);
+    background: transparent;
+    color: var(--ink);
+    padding: 6px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.book-inner {
+    transition: opacity 560ms ease, transform 560ms ease;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+body.diary-open .book-cover {
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.diary-open .book-inner {
+    opacity: 1;
+    transform: none;
 }
 
 .diary-card {
@@ -70,6 +145,170 @@ body {
     letter-spacing: 0.08em;
     text-transform: uppercase;
 }
+
+.card-top {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 12px;
+}
+
+/* ---------- Book layout ---------- */
+.book-wrapper{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:100vh;
+    padding:48px 20px;
+}
+
+.book-shadow{
+    position:absolute;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    background: radial-gradient(800px 300px at 50% 85%, rgba(0,0,0,0.18), transparent 30%);
+}
+
+.book{
+    width: 980px;
+    max-width: calc(100% - 80px);
+    height: 640px;
+    position: relative;
+    perspective: 2000px;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.spine{
+    position:absolute;
+    left:50%;
+    top:0;
+    bottom:0;
+    width:24px;
+    transform:translateX(-50%);
+    background: linear-gradient(180deg,#7a4b31,#8e5a3f);
+    box-shadow: inset 0 0 18px rgba(0,0,0,0.25);
+    z-index:5;
+    border-radius:2px;
+}
+
+.cover{
+    position:absolute;
+    width:48%;
+    height:100%;
+    top:0;
+    box-shadow: 0 28px 60px rgba(0,0,0,0.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    backface-visibility:hidden;
+    transform-origin:left center;
+    transition: transform 900ms cubic-bezier(.2,.9,.25,1), box-shadow 300ms ease;
+    border-radius: 6px;
+}
+
+.cover-front{
+    left:0;
+    background: linear-gradient(180deg,#b46b3d 0%, #8e4f25 100%);
+    color: #fff8ef;
+    z-index:8;
+}
+
+.cover-back{
+    right:0;
+    transform-origin:right center;
+    background: linear-gradient(180deg,#6b4b3a 0%, #4f3727 100%);
+    color: #fff8ef;
+    z-index:2;
+}
+
+.cover .cover-content{
+    text-align:center;
+    padding:28px;
+}
+
+.cover .cover-content h1{
+    margin:0 0 6px;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.cover .sub{opacity:0.95;font-weight:700}
+.cover .meta{opacity:0.9;font-size:0.95rem}
+
+.pages{
+    position:absolute;
+    left:48%;
+    top:16px;
+    right:48%;
+    height:calc(100% - 32px);
+    display:flex;
+    gap:12px;
+    transform-style: preserve-3d;
+    z-index:6;
+}
+
+.page{
+    width:48%;
+    height:100%;
+    background: linear-gradient(180deg, var(--paper) 0%, var(--paper-strong) 100%);
+    border-radius:6px;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+    transform-origin:left center;
+    transition: transform 900ms cubic-bezier(.2,.9,.25,1), box-shadow 300ms ease;
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.page-inner{padding:36px}
+
+.page-one{z-index:7}
+.page-two{z-index:4; transform: translateX(30px) rotateY(-6deg);}
+
+/* When book is opened hide the front cover by rotating it */
+body.book-open .cover-front{
+    transform: translateX(-48%) rotateY(-160deg);
+    box-shadow: none;
+}
+
+/* Flip to second page */
+body.page-flipped .page-one{
+    transform: rotateY(-180deg) translateX(-6%);
+    z-index:3;
+}
+
+body.page-flipped .page-two{
+    transform: none;
+    z-index:7;
+}
+
+/* Buttons */
+.btn{
+    padding:10px 14px;
+    border-radius:10px;
+    border:1px solid rgba(47,36,24,0.06);
+    background:transparent;
+    cursor:pointer;
+    font-weight:700;
+}
+.btn.primary{background:var(--accent);color:#fff;border:none}
+
+.actions{display:flex;gap:12px;justify-content:flex-end;margin-top:22px}
+
+/* Page content styles */
+h1{font-size:2rem;margin:0 0 8px}
+.subtitle{margin:8px 0 12px;color:var(--muted)}
+.entry-block{margin-top:18px;padding:16px;border-radius:12px;background:rgba(255,255,255,0.6)}
+
+/* Responsive */
+@media (max-width:1100px){
+    .book{height:560px}
+}
+@media (max-width:720px){
+    .book{width:560px;height:420px}
+    .pages{left:44%;right:44%}
+}
+
 
 h1 {
     margin: 0;

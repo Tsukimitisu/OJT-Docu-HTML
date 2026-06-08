@@ -1,52 +1,131 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Day 1 Diary</title>
+    <title>My OJT Diary — Day 1</title>
     <link rel="stylesheet" href="style.css">
+    <meta name="color-scheme" content="light dark">
 </head>
 <body>
-    <main class="diary-page">
-        <section class="diary-card">
-            <p class="day-label">Day 1</p>
-            <h1>My First Day at Xurpass</h1>
-            <p class="subtitle">A diary-style recap of what I learned and experienced today.</p>
+    <div class="book-wrapper">
+        <div class="book-shadow"></div>
+        <div class="book" id="book">
+            <div class="spine"></div>
 
-            <article class="entry-block">
-                <h2>Company Notes</h2>
-                <p>Xurpass Company was founded on November 26, 2001. It is one of the largest consumer tech companies in the Philippines.</p>
-                <p>The vision is to keep expanding and growing into the leading and most trusted IT solution provider in the country.</p>
-            </article>
-
-            <article class="entry-block">
-                <h2>What I Learned</h2>
-                <ul>
-                    <li>AI</li>
-                    <li>Flex IT</li>
-                    <li>Software Builders</li>
-                    <li>Business Solutions</li>
-                </ul>
-            </article>
-
-            <article class="entry-block">
-                <h2>Journey Timeline</h2>
-                <p>2001 - Early days with Fluxion Inc.</p>
-                <p>2005 to 2014 - Growth and IPO progress</p>
-                <p>2015 to 2017 - More partnerships acquired</p>
-                <p>2021 - Preferred partner in IT staffing solutions</p>
-                <p>Today - Launching Xurpas AI labels</p>
-            </article>
-
-            <article class="entry-block reflection">
-                <h2>Reflection</h2>
-                <p>Today felt like the beginning of a new chapter. I learned about the company, its services, and the path it took to grow.</p>
-            </article>
-
-            <div class="actions">
-                <a class="next-button" href="day2.html">Next Day</a>
+            <!-- Front cover -->
+            <div class="cover cover-front">
+                <div class="cover-content">
+                    <h1>My OJT Diary</h1>
+                    <p class="sub">Onboarding Journal</p>
+                    <p class="meta">Day 1 — Xurpass</p>
+                    <button id="openBtn" class="btn primary">Open</button>
+                </div>
             </div>
-        </section>
-    </main>
+
+            <!-- Pages container -->
+            <div class="pages">
+                <!-- Left page (back of cover) -->
+                <div class="page page-left page-frontback">
+                    <div class="page-inner">
+                        <h2 class="title-small">Welcome</h2>
+                        <p class="muted">A personal record of what I learn each day.</p>
+                    </div>
+                </div>
+
+                <!-- Right page (first content page) -->
+                <div class="page page-right page-one" id="page1">
+                    <div class="page-inner">
+                        <div class="card-top">
+                            <p class="day-label">Day 1</p>
+                        </div>
+                        <h1>My First Day at Xurpass</h1>
+                        <p class="subtitle">A diary-style recap of what I learned and experienced today.</p>
+
+                        <article class="entry-block">
+                            <h2>Company Notes</h2>
+                            <p>Xurpass Company was founded on November 26, 2001. It is one of the largest consumer tech companies in the Philippines.</p>
+                            <p>The vision is to keep expanding and growing into the leading and most trusted IT solution provider in the country.</p>
+                        </article>
+
+                        <article class="entry-block">
+                            <h2>What I Learned</h2>
+                            <ul>
+                                <li>AI</li>
+                                <li>Flex IT</li>
+                                <li>Software Builders</li>
+                                <li>Business Solutions</li>
+                            </ul>
+                        </article>
+
+                        <div class="actions">
+                            <button class="btn" id="prevBtn">Prev</button>
+                            <button class="btn primary" id="nextBtn">Next</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right-side second page (hidden until flipped) -->
+                <div class="page page-right page-two" id="page2">
+                    <div class="page-inner">
+                        <h1>Day 2 Placeholder</h1>
+                        <p>Use this space to add the next day's notes. Click Prev to go back.</p>
+                        <div class="actions">
+                            <button class="btn" id="prevBtn2">Prev</button>
+                            <a class="btn primary" href="day2.html">Open Day 2 file</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Back cover -->
+            <div class="cover cover-back">
+                <div class="cover-content">
+                    <p class="quote">Keep learning. Keep building.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function(){
+        var book = document.getElementById('book');
+        var openBtn = document.getElementById('openBtn');
+        var nextBtn = document.getElementById('nextBtn');
+        var prevBtn = document.getElementById('prevBtn');
+        var prevBtn2 = document.getElementById('prevBtn2');
+
+        openBtn && openBtn.addEventListener('click', function(){
+            document.body.classList.add('book-open');
+        });
+
+        nextBtn && nextBtn.addEventListener('click', function(){
+            document.body.classList.add('page-flipped');
+        });
+
+        prevBtn && prevBtn.addEventListener('click', function(){
+            document.body.classList.remove('page-flipped');
+        });
+
+        prevBtn2 && prevBtn2.addEventListener('click', function(){
+            document.body.classList.remove('page-flipped');
+        });
+    })();
+    </script>
 </body>
 </html>
+                                        </div>
+                                    </section>
+                                </section>
+                            </main>
+                        </div>
+
+                        <script>
+                            (function(){
+                                var open = document.getElementById('openDiary');
+                                var close = document.getElementById('closeDiary');
+                                open && open.addEventListener('click', function(){ document.body.classList.add('diary-open');});
+                                close && close.addEventListener('click', function(){ document.body.classList.remove('diary-open');});
+                            })();
+                        </script>
